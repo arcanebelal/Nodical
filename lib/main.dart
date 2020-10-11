@@ -25,14 +25,13 @@ class _MyAppState extends State<MyApp> {
       locale: Locale('en', 'US'),
       supportedLocales: [
         const Locale('en', 'US'), // English
-        const Locale('th', 'TH'), // Thai
       ],
       home: Home(),
       theme: ThemeData(
         // Define the default brightness and colors.
         brightness: Brightness.light,
         primaryColor: Colors.green,
-        accentColor: Colors.greenAccent,
+        accentColor: Color(0xFFFEF9EB),
       ),
     );
   }
