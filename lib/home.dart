@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:flutter_rounded_date_picker/src/material_rounded_date_picker_style.dart';
 import 'package:flutter_rounded_date_picker/src/material_rounded_year_picker_style.dart';
-import 'package:nodical/message.dart';
 import 'package:nodical/widgets/category_selector.dart';
+import 'package:nodical/widgets/favorite_contacts.dart';
+
+import 'widgets/recent_chats.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -20,6 +22,7 @@ class _HomeState extends State<Home> {
     dateTime = DateTime.now();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     Widget _buildBody() {
@@ -71,14 +74,15 @@ class _HomeState extends State<Home> {
                   label: const Text("Nodical Calendar"),
                 ),
                 FloatingActionButton.extended(
-                    onPressed: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ChatScreenState()),
-                      );
-                    },
-                    label: const Text("Nodical Chat"),
-                    heroTag: null,
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChatScreenState()),
+                    );
+                  },
+                  label: const Text("Nodical Chat"),
+                  heroTag: null,
                 ),
               ],
             ),
@@ -86,6 +90,7 @@ class _HomeState extends State<Home> {
         ],
       );
     }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -104,14 +109,16 @@ class ChatScreenState extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         leading: IconButton(
-            icon: Icon(Icons.menu),
-            iconSize: 30.0,
-            color: Colors.white,
-            onPressed: () {
-              Navigator.pop(context);
-            },),
+          icon: Icon(Icons.menu),
+          iconSize: 30.0,
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
           'Chats',
           style: TextStyle(
@@ -131,8 +138,22 @@ class ChatScreenState extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          CategorySelector(
-
+          CategorySelector(),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0),
+                  )),
+              child: Column(
+                children: <Widget>[
+                  FavoriteContacts(),
+                  RecentChats(),
+                ],
+              ),
+            ),
           ),
         ],
       ),
