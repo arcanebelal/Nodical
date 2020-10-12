@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
         // Define the default brightness and colors.
         brightness: Brightness.light,
         primaryColor: Colors.green,
-        accentColor: Color(0xFFFEF9EB),
+        accentColor: Color(0xFFE8FFE6),
       ),
     );
   }
