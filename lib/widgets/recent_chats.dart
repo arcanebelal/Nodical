@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nodical/chat_screen.dart';
+import 'package:nodical/screens/chat_screen.dart';
 import '../message.dart';
 
 class RecentChats extends StatelessWidget {
@@ -36,7 +36,7 @@ class RecentChats extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                   decoration: BoxDecoration(
-                      color: chat.unread ? Color(0xFFFFEFEE) : Colors.white,
+                      color: chat.unread ? Color(0xFFC8FFC0) : Colors.white,
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(20.0),
                           bottomRight: Radius.circular(20.0))),

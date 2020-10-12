@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nodical/chat_screen.dart';
+import 'package:nodical/screens/chat_screen.dart';
 
 import '../message.dart';
 
