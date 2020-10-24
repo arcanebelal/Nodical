@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "927388193131",
-    "firebase_url": "https://nodical-app.firebaseio.com",
-    "project_id": "nodical-app",
-    "storage_bucket": "nodical-app.appspot.com"
+    "project_number": "775464914602",
+    "firebase_url": "https://nodical-a0f0c.firebaseio.com",
+    "project_id": "nodical-a0f0c",
+    "storage_bucket": "nodical-a0f0c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:927388193131:android:06bdd4cf8a311e2d963c2e",
+        "mobilesdk_app_id": "1:775464914602:android:bf32b4ed5d0296c4304ad3",
         "android_client_info": {
-          "package_name": "com.example.nodical"
+          "package_name": "com.nodical.app.test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "927388193131-mj6p9743rlomqm9jlj09ek6adv9vguh7.apps.googleusercontent.com",
+          "client_id": "775464914602-u6qgmmcfr5sgtq8avc5q3ehbbcr9cdp9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAiY51DwZ_b7n72GS5QmpwezBnN6F_cVAc"
+          "current_key": "AIzaSyC9hc5_vuvMPRYlb4GSQpIv9B8fc_N62og"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "927388193131-mj6p9743rlomqm9jlj09ek6adv9vguh7.apps.googleusercontent.com",
+              "client_id": "775464914602-u6qgmmcfr5sgtq8avc5q3ehbbcr9cdp9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
