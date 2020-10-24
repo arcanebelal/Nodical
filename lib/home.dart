@@ -4,6 +4,8 @@ import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:flutter_rounded_date_picker/src/material_rounded_date_picker_style.dart';
 import 'package:flutter_rounded_date_picker/src/material_rounded_year_picker_style.dart';
 import 'package:nodical/screens/chat_home_screen.dart';
+import 'package:nodical/screens/login_screen.dart';
+import 'package:nodical/screens/sign_up_screen.dart';
 
 import 'widgets/recent_chats.dart';
 
@@ -81,6 +83,26 @@ class _HomeState extends State<Home> {
                     );
                   },
                   label: const Text("Nodical Chat"),
+                  heroTag: null,
+                ),
+                FloatingActionButton.extended(
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                  label: const Text("Login Screen"),
+                  heroTag: null,
+                ),
+                FloatingActionButton.extended(
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()),
+                    );
+                  },
+                  label: const Text("Sign Up Screen"),
                   heroTag: null,
                 ),
               ],
