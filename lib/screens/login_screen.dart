@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:nodical/home.dart';
-import 'package:provider/provider.dart';
-import 'package:nodical/authentication_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nodical/screens/sign_up_screen.dart';
+import 'package:nodical/services/authentication_service.dart';
+import '../home.dart';
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class LoginScreen extends StatefulWidget {
+  final Function toggleView;
+  LoginScreen({this.toggleView});
+
+  @override
+  _LoginScreenState createState() => new _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final AuthenticationService _auth = AuthenticationService();
+  String _email, _password;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.menu),
@@ -29,46 +39,56 @@ class LoginScreen extends StatelessWidget {
         ),
         elevation: 0.0,
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  )),
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: "Email",
-                    ),
-                  ),
-                  TextField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                    ),
+      body: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              TextFormField(
+                validator: (input) {
+                  if (input.isEmpty) {
+                    return 'Provide an email';
+                  }
+                },
+                decoration: InputDecoration(labelText: 'Email'),
+                onSaved: (input) => _email = input,
+              ),
+              TextFormField(
+                validator: (input) {
+                  if (input.length < 6) {
+                    return 'Longer password please';
+                  }
+                },
+                decoration: InputDecoration(labelText: 'Password'),
+                onSaved: (input) => _password = input,
+                obscureText: true,
+              ),
+              Row(
+                children: [
+                  RaisedButton(
+                    onPressed: () async {
+                      _formKey.currentState.save();
+                      dynamic result = await _auth.signInEmail(
+                          email: _email.trim(), password: _password.trim());
+                      if (result == null) {
+                        print('error signing in');
+                      } else {
+                        print('signed in');
+                        print(result.uid);
+                      }
+                    },
+                    child: Text('Sign in'),
                   ),
                   RaisedButton(
                     onPressed: () {
-                      context.read<AuthenticationService>().signIn(
-                            email: emailController.text.trim(),
-                            password: passwordController.text.trim(),
-                          );
-                      Navigator.pop(context);
+                      widget.toggleView();
                     },
-                    child: Text('Sign In'),
+                    child: Text('Sign up'),
                   ),
                 ],
               ),
-            ),
-          ),
-        ],
-      ),
+            ],
+          )),
     );
   }
 }

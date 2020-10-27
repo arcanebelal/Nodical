@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:nodical/authentication_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nodical/services/authentication_service.dart';
+import '../home.dart';
 
-class SignUpScreen extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class SignUpScreen extends StatefulWidget {
+  final Function toggleView;
+  SignUpScreen({this.toggleView});
+
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final AuthenticationService _firebaseAuth = AuthenticationService();
+  String _email, _password;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.menu),
@@ -28,45 +38,50 @@ class SignUpScreen extends StatelessWidget {
         ),
         elevation: 0.0,
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  )),
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: "Email",
-                    ),
-                  ),
-                  TextField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                    ),
+      body: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              TextFormField(
+                validator: (input) {
+                  if (input.isEmpty) {
+                    return 'Provide an email';
+                  }
+                },
+                decoration: InputDecoration(labelText: 'Email'),
+                onSaved: (input) => _email = input,
+              ),
+              TextFormField(
+                validator: (input) {
+                  if (input.length < 6) {
+                    return 'Longer password please';
+                  }
+                },
+                decoration: InputDecoration(labelText: 'Password'),
+                onSaved: (input) => _password = input,
+                obscureText: true,
+              ),
+              Row(
+                children: [
+                  RaisedButton(
+                    onPressed: () async {
+                      _formKey.currentState.save();
+                      _firebaseAuth.signUpEmail(
+                          email: _email.trim(), password: _password.trim());
+                    },
+                    child: Text('Sign up'),
                   ),
                   RaisedButton(
                     onPressed: () {
-                      context.read<AuthenticationService>().signUp(
-                            email: emailController.text.trim(),
-                            password: passwordController.text.trim(),
-                          );
+                      widget.toggleView();
                     },
-                    child: Text('Register'),
+                    child: Text('Sign in'),
                   ),
                 ],
               ),
-            ),
-          ),
-        ],
-      ),
+            ],
+          )),
     );
   }
 }

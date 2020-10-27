@@ -1,7 +1,7 @@
-import 'package:nodical/user.dart';
+import 'package:nodical/models/nodical_user.dart';
 
 class Message {
-  final User sender;
+  final NodicalUser sender;
   final String time;
   final String text;
   final bool isLiked;
@@ -16,44 +16,44 @@ class Message {
   });
 }
 
-//EXAMPLE USERS
-final User currentUser = User(
-    id: 0,
-    name: 'Current  User',
+//EXAMPLE NodicalUserS
+final NodicalUser currentNodicalUser = NodicalUser(
+    name: 'Current  NodicalUser',
     imageUrl: 'assets/images/Blank-Profile-Picture.jpg');
-final User will = User(
-  id: 1,
+final NodicalUser will = NodicalUser(
   name: 'Will',
   imageUrl: 'assets/images/Blank-Profile-Picture.jpg',
 );
-final User elena = User(
-  id: 2,
+final NodicalUser elena = NodicalUser(
   name: 'Elena',
   imageUrl: 'assets/images/Blank-Profile-Picture.jpg',
 );
-final User belal = User(
-  id: 3,
+final NodicalUser belal = NodicalUser(
   name: 'Belal',
   imageUrl: 'assets/images/Blank-Profile-Picture.jpg',
 );
-final User keigan = User(
-  id: 4,
+final NodicalUser keigan = NodicalUser(
   name: 'Keigan',
   imageUrl: 'assets/images/Blank-Profile-Picture.jpg',
 );
-final User woodland = User(
-  id: 5,
+final NodicalUser woodland = NodicalUser(
   name: 'Woodland',
   imageUrl: 'assets/images/Blank-Profile-Picture.jpg',
 );
-final User pierantozzi = User(
-  id: 6,
+final NodicalUser pierantozzi = NodicalUser(
   name: 'Pierantozzi',
   imageUrl: 'assets/images/Blank-Profile-Picture.jpg',
 );
 
 //FAVORITE CONTACTS
-List<User> favorites = [will, elena, belal, keigan, woodland, pierantozzi];
+List<NodicalUser> favorites = [
+  will,
+  elena,
+  belal,
+  keigan,
+  woodland,
+  pierantozzi
+];
 
 //EXAMPLE CHATS
 List<Message> chats = [
@@ -82,7 +82,7 @@ List<Message> messages = [
     unread: true,
   ),
   Message(
-    sender: currentUser,
+    sender: currentNodicalUser,
     time: '4:30 PM',
     text: 'Just walked my doge. She was super duper cute. The best pupper!!',
     isLiked: false,
@@ -103,7 +103,7 @@ List<Message> messages = [
     unread: true,
   ),
   Message(
-    sender: currentUser,
+    sender: currentNodicalUser,
     time: '2:30 PM',
     text: 'Nice! What kind of food did you eat?',
     isLiked: false,
