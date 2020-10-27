@@ -1,15 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
-import 'package:flutter_rounded_date_picker/src/material_rounded_date_picker_style.dart';
-import 'package:flutter_rounded_date_picker/src/material_rounded_year_picker_style.dart';
+import 'package:nodical/models/nodical_user.dart';
 import 'package:nodical/screens/chat_home_screen.dart';
 import 'package:nodical/screens/login_screen.dart';
 import 'package:nodical/screens/sign_up_screen.dart';
-
-import 'widgets/recent_chats.dart';
+import 'package:nodical/services/authentication_service.dart';
 
 class Home extends StatefulWidget {
+  const Home({Key key, this.user}) : super(key: key);
+  final NodicalUser user;
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -17,6 +19,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   DateTime dateTime;
   Duration duration;
+  final AuthenticationService _firebaseAuth = AuthenticationService();
 
   @override
   void initState() {
@@ -105,6 +108,13 @@ class _HomeState extends State<Home> {
                   label: const Text("Sign Up Screen"),
                   heroTag: null,
                 ),
+                FloatingActionButton.extended(
+                  onPressed: () async {
+                    await _firebaseAuth.signOut();
+                  },
+                  label: const Text("Sign Out"),
+                  heroTag: null,
+                ),
               ],
             ),
           ),
@@ -115,7 +125,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Nodical'),
+        title: widget.user != null
+            ? Text('Nodical ${widget.user.uid}')
+            : Text('Nodical'),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 32),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nodical/message.dart';
-import 'package:nodical/user.dart';
+import 'package:nodical/models/nodical_user.dart';
 
 class ChatScreen extends StatefulWidget {
-  final User user;
+  final NodicalUser user;
 
   ChatScreen({this.user});
 
@@ -160,7 +160,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemCount: messages.length,
                     itemBuilder: (BuildContext context, int index) {
                       final Message message = messages[index];
-                      final bool isMe = message.sender.id == currentUser.id;
+                      final bool isMe = true;
                       return _buildMessage(message, isMe);
                     },
                   ),

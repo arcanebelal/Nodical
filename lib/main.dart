@@ -2,11 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nodical/authentication_service.dart';
-import 'package:nodical/screens/login_screen.dart';
+import 'package:nodical/models/nodical_user.dart';
+import 'package:nodical/screens/wrapper.dart';
+import 'package:nodical/services/authentication_service.dart';
 import 'package:provider/provider.dart';
-import 'home.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,12 +23,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<AuthenticationService>(
-          create: (_) => AuthenticationService(FirebaseAuth.instance),
-        ),
-        StreamProvider(
-          create: (context) =>
-              context.read<AuthenticationService>().authStateChanges,
+        StreamProvider<NodicalUser>.value(
+          value: AuthenticationService().user,
         ),
       ],
       child: MaterialApp(
@@ -44,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: [
           const Locale('en', 'US'), // English
         ],
-        home: Home(),
+        home: Wrapper(),
         theme: ThemeData(
           // Define the default brightness and colors.
           brightness: Brightness.light,
@@ -53,16 +48,5 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
-  }
-}
-
-class AuthenticationWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
-    if (firebaseUser != null) {
-      return Home();
-    }
-    return LoginScreen();
   }
 }
