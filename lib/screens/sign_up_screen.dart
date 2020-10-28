@@ -21,14 +21,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          iconSize: 30.0,
-          color: Colors.white,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: Text(
           'Registration',
           style: TextStyle(
