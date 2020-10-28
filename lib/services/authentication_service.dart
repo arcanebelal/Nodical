@@ -1,10 +1,11 @@
 import 'package:nodical/services/database.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import '../models/nodical_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   NodicalUser _userFromFirebaseUser(User user) {
     return user != null ? NodicalUser(uid: user.uid) : null;
@@ -33,6 +34,25 @@ class AuthenticationService {
 
       await DatabaseService(uid: user.uid).updateUserData('new');
     } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
+  }
+
+  Future signInGoogle() async {
+    try {
+      GoogleSignInAccount result = await googleSignIn.signIn();
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await result.authentication;
+      AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      UserCredential authResult =
+          await _firebaseAuth.signInWithCredential(credential);
+      User user = authResult.user;
+
+      await DatabaseService(uid: user.uid).updateUserData('new');
+    } catch (e) {
       print(e.message);
     }
   }
