@@ -7,6 +7,9 @@ import 'package:nodical/screens/chat_home_screen.dart';
 import 'package:nodical/screens/login_screen.dart';
 import 'package:nodical/screens/sign_up_screen.dart';
 import 'package:nodical/services/authentication_service.dart';
+import 'package:nodical/services/database.dart';
+import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key, this.user}) : super(key: key);

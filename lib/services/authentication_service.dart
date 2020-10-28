@@ -1,3 +1,5 @@
+import 'package:nodical/services/database.dart';
+
 import '../models/nodical_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -25,8 +27,11 @@ class AuthenticationService {
 
   Future signUpEmail({String email, String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      UserCredential result = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      User user = result.user;
+
+      await DatabaseService(uid: user.uid).updateUserData('new');
     } on FirebaseAuthException catch (e) {
       print(e.message);
     }
