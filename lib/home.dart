@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:nodical/models/nodical_user.dart';
 import 'package:nodical/screens/chat_home_screen.dart';
+import 'package:nodical/screens/home_screen.dart';
 import 'package:nodical/screens/login_screen.dart';
 import 'package:nodical/screens/sign_up_screen.dart';
 import 'package:nodical/services/authentication_service.dart';
@@ -109,6 +110,16 @@ class _HomeState extends State<Home> {
                     );
                   },
                   label: const Text("Sign Up Screen"),
+                  heroTag: null,
+                ),
+                FloatingActionButton.extended(
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                  },
+                  label: const Text("Test Home Screen"),
                   heroTag: null,
                 ),
                 FloatingActionButton.extended(
