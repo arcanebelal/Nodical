@@ -6,6 +6,14 @@ class AppointmentEditor extends StatefulWidget {
 }
 
 class AppointmentEditorState extends State<AppointmentEditor> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  void inputData(List<Meeting> meetings) {
+    final User user = auth.currentUser;
+    final uid = user.uid;
+    final DatabaseService _databaseService = DatabaseService(uid: uid);
+    _databaseService.addEvents(meetings[0]);
+  }
+
   Widget _getAppointmentEditor(BuildContext context) {
     return Container(
         color: Colors.white,
@@ -336,9 +344,10 @@ class AppointmentEditorState extends State<AppointmentEditor> {
                       ));
 
                       _events.appointments.add(meetings[0]);
-
                       _events.notifyListeners(
                           CalendarDataSourceAction.add, meetings);
+                      inputData(meetings);
+                      print('lol');
                       _selectedAppointment = null;
 
                       Navigator.pop(context);

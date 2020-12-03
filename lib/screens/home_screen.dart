@@ -1,10 +1,14 @@
 library event_calendar;
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nodical/models/meeting.dart';
 import 'package:nodical/models/nodical_user.dart';
 import 'package:nodical/screens/chat_home_screen.dart';
 import 'package:nodical/services/authentication_service.dart';
+import 'package:nodical/services/database.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 part 'color-picker.dart';
@@ -45,7 +49,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    _calendarView = CalendarView.week;
+    _calendarView = CalendarView.month;
     appointments = getMeetingDetails();
     _events = DataSource(appointments);
     _selectedAppointment = null;
@@ -385,25 +389,4 @@ class DataSource extends CalendarDataSource {
 
   @override
   DateTime getEndTime(int index) => appointments[index].to;
-}
-
-class Meeting {
-  Meeting(
-      {@required this.from,
-      @required this.to,
-      this.background = Colors.green,
-      this.isAllDay = false,
-      this.eventName = '',
-      this.startTimeZone = '',
-      this.endTimeZone = '',
-      this.description = ''});
-
-  final String eventName;
-  final DateTime from;
-  final DateTime to;
-  final Color background;
-  final bool isAllDay;
-  final String startTimeZone;
-  final String endTimeZone;
-  final String description;
 }
