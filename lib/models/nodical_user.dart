@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 /// This will become our User
 
 class NodicalUser {
@@ -10,4 +12,8 @@ class NodicalUser {
     this.name,
     this.imageUrl,
   });
+
+  String getUserId() {
+    return uid;
+  }
 }

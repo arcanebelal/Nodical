@@ -14,7 +14,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final AuthenticationService _firebaseAuth = AuthenticationService();
-  String _email, _password;
+  String _email, _password, _name;
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +54,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onSaved: (input) => _password = input,
                 obscureText: true,
               ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Name'),
+                onSaved: (input) => _name = input,
+                obscureText: true,
+              ),
               Row(
                 children: [
                   RaisedButton(
                     onPressed: () async {
                       _formKey.currentState.save();
                       _firebaseAuth.signUpEmail(
-                          email: _email.trim(), password: _password.trim());
+                          email: _email.trim(),
+                          password: _password.trim(),
+                          name: _name.trim());
                     },
                     child: Text('Sign up'),
                   ),
